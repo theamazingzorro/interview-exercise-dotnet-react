@@ -17,10 +17,6 @@ export default function CourseTable({ courses, onSync }: CourseTableProps) {
     return <p className="empty">No courses to show.</p>;
   }
 
-  // `onSync` is intentionally referenced here so the wiring is in place; wire it
-  // to your Sync button when you add it below.
-  void onSync;
-
   return (
     <table className="course-table">
       <thead>
@@ -31,7 +27,7 @@ export default function CourseTable({ courses, onSync }: CourseTableProps) {
           <th>Term</th>
           <th>Syllabus Status</th>
           <th>Last Synced</th>
-          {/* TODO(candidate): a column for the "Sync Now" action */}
+          <th>Sync</th>
         </tr>
       </thead>
       <tbody>
@@ -51,7 +47,14 @@ export default function CourseTable({ courses, onSync }: CourseTableProps) {
               )}
             </td>
             <td>{formatLastSynced(course.lastSyncedUtc)}</td>
-            {/* TODO(candidate): a "Sync Now" button that calls onSync(course.id) */}
+            <td className="sync-action">
+              <button
+                type="button"
+                onClick={() => void onSync(course.id)}
+              >
+                Sync Now
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
