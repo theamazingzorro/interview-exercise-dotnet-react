@@ -7,6 +7,8 @@ export default function App() {
   const [courses, setCourses] = useState<CourseSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [syncingIds, setSyncingIds] = useState<number[]>([]);
+  const [syncErrors, setSyncErrors] = useState<Record<number, string>>({});
 
   useEffect(() => {
     fetchCourses()
@@ -22,13 +24,25 @@ export default function App() {
   // with the returned record. Think about how to reflect the in-progress and
   // error states for the specific row being synced.
   async function handleSync(id: number): Promise<void> {
+    setSyncingIds((ids) => [...ids, id]);
+    setSyncErrors((errors) => {
+      const next = { ...errors };
+      delete next[id];
+      return next;
+    });
+
     try {
       const updatedCourse = await syncCourse(id);
-      setCourses((current) =>
-        current.map((course) => (course.id === id ? updatedCourse : course))
+      setCourses((courses) =>
+        courses.map((course) => (course.id === id ? updatedCourse : course))
       );
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : `Unable to sync course ${id}`);
+      setSyncErrors((errors) => ({
+        ...errors,
+        [id]: err instanceof Error ? err.message : "Unable to sync course",
+      }));
+    } finally {
+      setSyncingIds((ids) => ids.filter((syncId) => syncId !== id));
     }
   }
 
@@ -42,7 +56,12 @@ export default function App() {
       {loading && <p>Loading courses…</p>}
       {error && <p className="error">Error: {error}</p>}
       {!loading && !error && (
-        <CourseTable courses={courses} onSync={handleSync} />
+        <CourseTable 
+          courses={courses} 
+          onSync={handleSync} 
+          syncingIds={syncingIds} 
+          syncErrors={syncErrors} 
+        />
       )}
     </div>
   );

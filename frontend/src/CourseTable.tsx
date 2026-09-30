@@ -3,6 +3,8 @@ import type { CourseSummary } from "./types";
 interface CourseTableProps {
   courses: CourseSummary[];
   onSync: (id: number) => void | Promise<void>;
+  syncingIds: number[];
+  syncErrors: Record<number, string>;
 }
 
 // Presentational component: renders the list of courses in a table.
@@ -12,7 +14,7 @@ interface CourseTableProps {
 //      `course.isOutOfDate`) so an instructor can spot them at a glance.
 //   2. Add a "Sync Now" button per row that calls `onSync(course.id)`, with
 //      an accessible in-progress / disabled state while the request runs.
-export default function CourseTable({ courses, onSync }: CourseTableProps) {
+export default function CourseTable({ courses, onSync, syncingIds, syncErrors }: CourseTableProps) {
   if (courses.length === 0) {
     return <p className="empty">No courses to show.</p>;
   }
@@ -50,10 +52,17 @@ export default function CourseTable({ courses, onSync }: CourseTableProps) {
             <td className="sync-action">
               <button
                 type="button"
+                disabled={syncingIds.includes(course.id)}
+                aria-busy={syncingIds.includes(course.id)}
                 onClick={() => void onSync(course.id)}
               >
-                Sync Now
+                {syncingIds.includes(course.id) ? "Syncing…" : "Sync Now"}
               </button>
+              {syncErrors[course.id] && (
+                <p className="sync-error" role="alert">
+                  {syncErrors[course.id]}
+                </p>
+              )}
             </td>
           </tr>
         ))}
