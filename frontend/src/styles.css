@@ -47,6 +47,27 @@ h1 {
   background: #fafafa;
 }
 
+.course-table tbody tr.course-row-out-of-date {
+  background: #fff0f2;
+}
+
+.course-table tbody tr.course-row-out-of-date:hover {
+  background: #ffe1e6;
+}
+
+.course-table tbody tr.course-row-out-of-date td:first-child {
+  border-left: 4px solid #b71234;
+  padding-left: calc(0.75rem - 4px);
+}
+
+.out-of-date-label {
+  display: block;
+  margin-top: 0.2rem;
+  color: #8f1029;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 .error {
   color: #b71234;
 }

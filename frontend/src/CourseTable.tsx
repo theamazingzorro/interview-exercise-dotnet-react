@@ -36,12 +36,20 @@ export default function CourseTable({ courses, onSync }: CourseTableProps) {
       </thead>
       <tbody>
         {courses.map((course) => (
-          <tr key={course.id}>
+          <tr 
+            key={course.id}
+            className={course.isOutOfDate ? "course-row-out-of-date" : undefined} 
+          >
             <td>{course.code}</td>
             <td>{course.title}</td>
             <td>{course.department}</td>
             <td>{course.term}</td>
-            <td>{course.syllabusStatus}</td>
+            <td>
+              {course.syllabusStatus}
+              {course.isOutOfDate && (
+                <span className="out-of-date-label">Needs attention</span>
+              )}
+            </td>
             <td>{formatLastSynced(course.lastSyncedUtc)}</td>
             {/* TODO(candidate): a "Sync Now" button that calls onSync(course.id) */}
           </tr>
