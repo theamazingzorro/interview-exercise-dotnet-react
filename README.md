@@ -217,17 +217,19 @@ folder). If you didn't use AI, say so in the AI-usage note above.
 
 ## Submission
 
-> _Fill this in before you submit. Delete these italic prompts as you go._
-
 ### AI usage
 
-_Which tools, where you corrected/reviewed the AI output, and anything it got
-confidently wrong._
+I made use of Copilot for this project. Its usage was fairly minimal, just relegated to implementing CSS 
+classes that better emphasize the new features. Due to that there were no major issues in its output, other
+than some changes to its color choices to match the theme.
 
 ### If I had two more hours
 
-_What you'd add or improve next, and what you're least sure about._
+I’d add focused tests for the sync endpoint and the frontend’s loading, success, and failure states. I’m least 
+sure how a real syllabus provider should handle timeouts or partial failures. I’d like to confirm how that would
+be expected to work before trying for anything more robust than what was implemented here.
+
 
 ### AI chat export
 
-_Where your exported chat(s) live in the repo (e.g. `chats/`)._
+The chat history is in chat.md in this directory.

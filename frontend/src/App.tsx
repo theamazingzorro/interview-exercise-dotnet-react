@@ -19,10 +19,6 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  // TODO(candidate): implement "Sync Now".
-  // When a course is synced, call the API and update that row in `courses`
-  // with the returned record. Think about how to reflect the in-progress and
-  // error states for the specific row being synced.
   async function handleSync(id: number): Promise<void> {
     setSyncingIds((ids) => [...ids, id]);
     setSyncErrors((errors) => {

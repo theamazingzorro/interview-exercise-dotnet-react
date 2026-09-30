@@ -8,12 +8,6 @@ interface CourseTableProps {
 }
 
 // Presentational component: renders the list of courses in a table.
-//
-// The read-only columns are done. Two things are left for you to build:
-//   1. Visibly highlight courses whose syllabus is out of date (see
-//      `course.isOutOfDate`) so an instructor can spot them at a glance.
-//   2. Add a "Sync Now" button per row that calls `onSync(course.id)`, with
-//      an accessible in-progress / disabled state while the request runs.
 export default function CourseTable({ courses, onSync, syncingIds, syncErrors }: CourseTableProps) {
   if (courses.length === 0) {
     return <p className="empty">No courses to show.</p>;
