@@ -68,6 +68,52 @@ h1 {
   font-weight: 600;
 }
 
+.sync-action {
+  min-width: 7.5rem;
+  vertical-align: top;
+}
+
+.sync-action button {
+  padding: 0.4rem 0.65rem;
+  border: 1px solid #b71234;
+  border-radius: 4px;
+  background: #fff;
+  color: #b71234;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sync-action button:hover:not(:disabled) {
+  background: #b71234;
+  color: #fff;
+}
+
+.sync-action button:focus-visible {
+  outline: 2px solid #b71234;
+  outline-offset: 2px;
+}
+
+.sync-action button:disabled {
+  border-color: #c9aeb4;
+  background: #f7f1f2;
+  color: #6b555a;
+  cursor: wait;
+}
+
+.sync-error {
+  max-width: 15rem;
+  margin: 0.45rem 0 0;
+  padding-left: 0.5rem;
+  border-left: 2px solid #b71234;
+  color: #8f1029;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 .error {
   color: #b71234;
 }
